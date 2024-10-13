@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log a Call</title>
+    <style>
+        /* Center the body content both horizontally and vertically */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        /* Center the container and set text alignment */
+        .container {
+            text-align: center;
+        }
+        /* Style the form */
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            max-width: 400px;
+            width: 100%;
+        }
+        /* Style the labels */
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        /* Style the input fields and textarea */
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        /* Style the submit button */
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        /* Change button color on hover */
+        button:hover {
+            background-color: #45a049;
+        }
+        /* Style the confirmation message */
+        .message {
+            margin-top: 20px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DAERL Helpdesk</h1>
+        <!-- Form for logging a call -->
+        <form id="logCallForm">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+            
+            <label for="contactNumber">Contact Number:</label>
+            <input type="text" id="contactNumber" name="contactNumber" required>
+            
+            <label for="location">Location:</label>
+            <select id="location" name="location" required>
+                <option value="">Select Location</option>
+                <option value="Sasko">Sasko Building (Kimberley)</option>
+                <option value="Temothuo">Temothuo (Kimberley)</option>
+                <option value="Cullinan">Cullinan (Kimberley)</option>
+                <option value="Talama">Talama (Kimberley)</option>
+				<option value="Water Affairs (Upington)">Water Affairs (Upington)</option>
+				<option value="Research Station (Upington">Research Station (Upington</option>
+				<option value="Karakul (Upington)">Karakul (Upington)</option>
+				<option value="Extension Office (Springbok)">Extension Office (Springbok)</option>
+				<option value="Vet Services (Springbok)">Vet Services (Springbok)</option>
+				<option value="Goegap Reserve (Springbok)">Goegap Reserve (Springbok)</option>
+				<option value="Voortrekker (Springbok)">Voortrekker (Springbok)</option>
+				<option value="Seoding Vet Service (Kuruman)">Seoding Vet Service (Kuruman)</option>
+				<option value="Mothibistad Extension Office (Kuruman)">Mothibistad Extension Office (Kuruman)</option>
+				<option value="Land Bank (Kuruman)">Land Bank (Kuruman)</option>
+				<option value="Kuruman Vet Services">Kuruman Vet Services</option>
+				<option value="Hartswater Extension Office and Research Station">Hartswater Extension Office and Research Station</option>
+				<option value="De Aar Vet Services">De Aar Vet Services</option>
+				<option value="De Aar Extension Office">De Aar Extension Office</option>
+            </select>
+            
+            <label for="emailAddress">Email Address:</label>
+            <input type="email" id="emailAddress" name="emailAddress" required>
+            
+            <label for="summary">Summary of the Issue:</label>
+            <input type="text" id="summary" name="summary" required>
+            
+            <label for="description">Description of the Issue:</label>
+            <textarea id="description" name="description" required></textarea>
+            
+            <button type="submit">Submit</button>
+        </form>
+        <!-- Confirmation message -->
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        // Add event listener to the form for handling form submission
+        document.getElementById('logCallForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Get the values from the form fields
+            const fullName = document.getElementById('fullName').value;
+            const contactNumber = document.getElementById('contactNumber').value;
+            const location = document.getElementById('location').value;
+            const emailAddress = document.getElementById('emailAddress').value;
+            const summary = document.getElementById('summary').value;
+            const description = document.getElementById('description').value;
+
+            // Encode the email subject and body
+            const emailSubject = encodeURIComponent(summary);
+            const emailBody = encodeURIComponent(`Full Name: ${fullName}\nContact Number: ${contactNumber}\nLocation: ${location}\nEmail Address: ${emailAddress}\nSummary: ${summary}\nDescription: ${description}`);
+
+            // Create the mailto link and open it
+            window.location.href = `mailto:help@daerl.on.spiceworks.com?subject=${emailSubject}&body=${emailBody}`;
+
+            // Display a confirmation message
+            document.getElementById('message').textContent = 'Your call has been logged successfully!';
+        });
+    </script>
+</body>
+</html>
